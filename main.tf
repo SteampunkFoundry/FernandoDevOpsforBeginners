@@ -19,7 +19,7 @@ resource "aws_instance" "app_server" {
   subnet_id = "subnet-02a9c3397a0a8b78b"
 
   tags = {
-    Name = "<TestInstance1"
+    Name = "<TestInstance2"
     CreatorName ="<fquezado>"
   }
 }
