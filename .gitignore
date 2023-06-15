@@ -24,9 +24,10 @@ bin/
 
 ### VS Code ###
 .vscode/
+/.terraform/
 
 ### Mac OS ###
 .DS_Store
 
 ### Terraform EXE files ###
-*.terraform/
+
