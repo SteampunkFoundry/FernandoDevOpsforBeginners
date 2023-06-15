@@ -31,3 +31,4 @@ bin/
 ### Terraform EXE files ###
 .terraform/
 .terraform
+.terraform.lock.hcl
