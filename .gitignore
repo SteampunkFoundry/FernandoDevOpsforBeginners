@@ -29,6 +29,4 @@ bin/
 .DS_Store
 
 ### Terraform EXE files ###
-.terraform/
-.terraform
-.terraform.lock.hcl
+*.terraform/
