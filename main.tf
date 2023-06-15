@@ -2,10 +2,10 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.27"
+      version = "~> 5.30"
     }
   }
-  required_version = ">= 0.14.9"
+  required_version = ">= 0.15.3"
 }
 
 provider "aws" {
@@ -14,12 +14,12 @@ provider "aws" {
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-099543e8a36a7890c"
+  ami           = "ami-0d86c69530d0a048e"
   instance_type = "t2.micro"
-  subnet_id = "subnet-0f83fd875df60928a"
+  subnet_id = "subnet-02a9c3397a0a8b78b"
 
   tags = {
-    Name = "<YOUR-NAME>-test-instance"
-    CreatorName = <aws_username_given_with_your_key>
+    Name = "<TestInstance1"
+    CreatorName ="<fquezado>"
   }
 }
