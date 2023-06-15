@@ -30,4 +30,5 @@ bin/
 .DS_Store
 
 ### Terraform EXE files ###
+/terraform-provider-aws_v4.67.0_x5.exe
 
