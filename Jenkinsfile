@@ -26,7 +26,9 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
+                    def dockerImage // Define the dockerImage variable at the top level
                     docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
+                        dockerImage = docker.image('fernandosteampunkproject:latest') // Assign the existing image to the variable
                         dockerImage.push()
                     }
                 }
