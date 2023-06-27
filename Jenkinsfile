@@ -12,9 +12,9 @@ pipeline {
             steps {
                 script {
                     // Check if the Docker image already exists
-                    def dockerImage = docker.image('fernandosteampunkproject:latest')
+                    def dockerImage = docker.image('fquezado/fernandosteampunkproject:latest')
                     if (!dockerImage.exists()) {
-                        dockerImage = docker.build("fernandosteampunkproject:latest")
+                        dockerImage = docker.build("fquezado/fernandosteampunkproject:latest")
                     } else {
                         // The image already exists, skip building
                         echo "Docker image already exists. Skipping build..."
@@ -28,8 +28,8 @@ pipeline {
                 script {
                     def dockerImage // Define the dockerImage variable at the top level
                     docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
-                        dockerImage = docker.image('fernandosteampunkproject:latest') // Assign the existing image to the variable
-                        dockerImage.push()
+                        dockerImage = docker.image('fquezado/fernandosteampunkproject:latest') // Assign the existing image to the variable
+                        dockerImage.push("${env.BUILD_NUMBER}") // Push the Docker image with a tag
                     }
                 }
             }
@@ -41,8 +41,8 @@ pipeline {
                     sh """
                     ssh -o StrictHostKeyChecking=no ec2-user@ec2-44-204-250-147.compute-1.amazonaws.com << EOF
                     docker login -u fquezado -p kappa-doc-Dunca1! https://registry.hub.docker.com
-                    docker pull fernandosteampunkproject:latest
-                    docker run -d -p 80:80 --name fernandosteampunkproject fernandosteampunkproject:latest
+                    docker pull fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}
+                    docker run -d -p 80:80 --name fernandosteampunkproject fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}
                     EOF
                     """
                 }
