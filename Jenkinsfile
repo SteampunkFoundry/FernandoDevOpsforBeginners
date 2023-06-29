@@ -24,7 +24,7 @@ pipeline {
                 script {
                     echo 'Pushing Docker image...'
                     def dockerImage // Define the dockerImage variable at the top level
-                    docker.withRegistry('https://hub.docker.com', 'DockerCredentials') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'DockerCredentials') {
                         dockerImage = docker.image("fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}")
                         // Assign the built image to the variable
                         dockerImage.push()
@@ -36,18 +36,20 @@ pipeline {
         stage('Deploy Docker Image') {
             steps {
                 script {
-                    sh"""
-                    echo 'Logging in to Docker registry...'
-                    docker login -u fquezado -p kappa-doc-Dunca1! docker.io
-                    echo 'Pulling Docker image...'
-                    docker pull fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}
-                    echo 'Stopping existing container...'
-                    docker stop fernandosteampunkproject || true
-                    echo 'Removing existing container...'
-                    docker rm fernandosteampunkproject || true
-                    echo 'Running Docker container...'
-                    docker run -d -p 80:80 --name fernandosteampunkproject fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}
-                    """
+                    withCredentials([usernamePassword(credentialsId: 'DockerCredentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh"""
+                        echo 'Logging in to Docker registry...'
+                        echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin docker.io
+                        echo 'Pulling Docker image...'
+                        docker pull fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}
+                        echo 'Stopping existing container...'
+                        docker stop fernandosteampunkproject || true
+                        echo 'Removing existing container...'
+                        docker rm fernandosteampunkproject || true
+                        echo 'Running Docker container...'
+                        docker run -d -p 80:80 --name fernandosteampunkproject fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}
+                        """
+                    }
                 }
             }
         }
