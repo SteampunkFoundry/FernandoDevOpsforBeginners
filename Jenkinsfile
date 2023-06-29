@@ -24,7 +24,7 @@ pipeline {
                 script {
                     echo 'Pushing Docker image...'
                     def dockerImage // Define the dockerImage variable at the top level
-                    docker.withRegistry('https://hub.docker.com', 'DockerCred') {
+                    docker.withRegistry('https://hub.docker.com', 'DockerCredentials') {
                         dockerImage = docker.image("fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}")
                         // Assign the built image to the variable
                         dockerImage.push()
