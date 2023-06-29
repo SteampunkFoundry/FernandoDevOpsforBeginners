@@ -38,7 +38,7 @@ pipeline {
                 script {
                     sh"""
                     echo 'Logging in to Docker registry...'
-                    docker login -u fquezado -p kappa-doc-Dunca1! https://hub.docker.com
+                    docker login -u fquezado -p kappa-doc-Dunca1! docker.io
                     echo 'Pulling Docker image...'
                     docker pull fquezado/fernandosteampunkproject:${env.BUILD_NUMBER}
                     echo 'Stopping existing container...'
