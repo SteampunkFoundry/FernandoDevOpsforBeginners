@@ -2,10 +2,14 @@
 <html lang="en" xmlns="">
 <head>
     <meta charset="UTF-8">
-    <title>My Project for team Punk</title>
+    <title>My Project for Team Punk</title>
+    <script src="FDAapiScript.js"></script>
 </head>
 <body>
-    <h1>Steampunk Intern Project</h1>
-    <p>I will be testing different applications in this aws web server!</p>
+    <label for="zipCode">Enter a Zip Code:</label>
+    <input type="text" id="zipCode" name="zipCode">
+    <button type="button" onclick="getReports()">Get Reports</button>
+
+    <div id="result"></div>
 </body>
 </html>
