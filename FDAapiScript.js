@@ -30,7 +30,8 @@ async function getReports() {
 
         // Display the data in the "result" div
         data.results.forEach((item, i) => {
-            document.getElementById("result").innerHTML += `<p>Report ${i+1}: ${item.product_description}</p>`;
+            document.getElementById("result").innerHTML +=
+                `<p>Report ${i+1}: ${item.product_description}</p>`;
         });
     }
 }
